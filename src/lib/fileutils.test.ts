@@ -263,6 +263,9 @@ describe("Adding a new service to a Bedrock file", () => {
     };
     const traefikMiddlewares = ["foo", "bar"];
     const k8sServicePort = 8080;
+    const pathPrefix = "my-new-service-prefix";
+    const version = "v1";
+    const backend = "my-backing-k8s-service";
 
     const writeSpy = jest.spyOn(fs, "writeFileSync");
     addNewServiceToBedrockFile(
@@ -271,7 +274,10 @@ describe("Adding a new service to a Bedrock file", () => {
       svcDisplayName,
       helmConfig,
       traefikMiddlewares,
-      k8sServicePort
+      k8sServicePort,
+      pathPrefix,
+      version,
+      backend
     );
 
     const defaultBedrockFileObject = createTestBedrockYaml(false);
@@ -281,10 +287,13 @@ describe("Adding a new service to a Bedrock file", () => {
       services: {
         ...(defaultBedrockFileObject as IBedrockFile).services,
         ["./" + servicePath]: {
+          backend,
           displayName: svcDisplayName,
           helm: helmConfig,
           k8sServicePort,
-          middlewares: traefikMiddlewares
+          middlewares: traefikMiddlewares,
+          pathPrefix,
+          version
         }
       },
       variableGroups: []

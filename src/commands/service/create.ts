@@ -169,6 +169,7 @@ export const createCommandDecorator = (command: commander.Command): void => {
           gitPush,
           k8sPort,
           {
+            backend,
             displayName,
             helmChartChart,
             helmChartRepository,
@@ -180,10 +181,9 @@ export const createCommandDecorator = (command: commander.Command): void => {
             middlewares: (middlewares as string)
               .split(",")
               .map(str => str.trim()),
-            variableGroups,
             pathPrefix,
-            version,
-            backend
+            variableGroups,
+            version
           }
         );
       } catch (err) {
@@ -348,6 +348,7 @@ export const createService = async (
   gitPush: boolean,
   k8sServicePort: number,
   opts?: {
+    backend?: string;
     displayName?: string;
     helmChartChart?: string;
     helmChartRepository?: string;
@@ -356,11 +357,10 @@ export const createService = async (
     helmConfigPath?: string;
     maintainerEmail?: string;
     maintainerName?: string;
-    variableGroups?: string[];
     middlewares?: string[];
     pathPrefix?: string;
+    variableGroups?: string[];
     version?: string;
-    backend?: string;
   }
 ) => {
   const {
