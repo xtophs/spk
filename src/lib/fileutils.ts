@@ -621,7 +621,7 @@ export const generateGitIgnoreFile = (
  * @param middlewares
  * @param k8sServicePort
  * @param pathPrefix
- * @param version
+ * @param pathPrefixVersion
  * @param backend
  */
 export const addNewServiceToBedrockFile = (
@@ -632,7 +632,7 @@ export const addNewServiceToBedrockFile = (
   middlewares: string[],
   k8sServicePort: number,
   pathPrefix?: string,
-  version?: string,
+  pathPrefixVersion?: string,
   backend?: string
 ) => {
   const bedrockFile = yaml.safeLoad(
@@ -646,7 +646,7 @@ export const addNewServiceToBedrockFile = (
     k8sServicePort,
     middlewares,
     pathPrefix,
-    version
+    pathPrefixVersion
   };
 
   logger.info("Updating bedrock.yaml");
